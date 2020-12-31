@@ -1,19 +1,20 @@
 module.exports = {
   title: 'Unity Tools for Azure DevOps',
-  tagline: 'CI / CD for your Unity projects powered by Azure Pipelines',
+  tagline: 'Set up CI/CD for Unity projects powered by Azure Pipelines',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'Dinomite-Studios', // Usually your GitHub org/user name.
-  projectName: 'unity-azure-pipelines-tasks', // Usually your repo name.
+  organizationName: 'Dinomite-Studios',
+  projectName: 'unity-azure-pipelines-tasks',
   themeConfig: {
     navbar: {
       title: 'Unity Tools for Azure DevOps',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
+        srcDark: 'img/logo-dark.svg'
       },
       items: [
         {
@@ -36,12 +37,16 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
+              label: 'About',
               to: 'docs/',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
+              label: 'Features',
+              to: 'docs/features/',
+            },
+            {
+              label: 'Examples',
+              to: 'docs/examples/',
             }
           ],
         },

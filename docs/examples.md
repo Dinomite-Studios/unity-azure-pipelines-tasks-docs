@@ -1,7 +1,9 @@
 ---
-id: mdx
-title: Powered by MDX
+id: examples
+title: Introduction
 ---
+
+This is a link to [another document.](doc3.md) This is a link to an [external page.](http://www.example.com/)
 
 You can write JSX and use React components within your Markdown thanks to [MDX](https://mdxjs.com/).
 

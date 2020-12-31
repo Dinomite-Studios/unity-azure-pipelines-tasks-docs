@@ -1,7 +1,7 @@
 ---
-id: doc1
-title: Style Guide
-sidebar_label: Style Guide
+id: about
+title: About Unity Tools for Azure DevOps
+sidebar_label: About
 slug: /
 ---
 

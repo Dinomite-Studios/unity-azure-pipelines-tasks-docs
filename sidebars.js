@@ -1,6 +1,14 @@
 module.exports = {
   someSidebar: {
-    Docusaurus: ['doc1', 'doc2', 'doc3'],
-    Features: ['mdx'],
+    Welcome: ['about'],
+    Features: [
+      'features',
+      'unity-build-task',
+      'unity-get-project-version-task',
+      'unity-cmd-task',
+      'unity-activate-license-task',
+      'unity-test-task'
+    ],
+    Examples: ['examples']
   },
 };
