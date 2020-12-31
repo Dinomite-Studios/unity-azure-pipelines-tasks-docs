@@ -1,16 +1,16 @@
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
+  title: 'Unity Tools for Azure DevOps',
+  tagline: 'CI / CD for your Unity projects powered by Azure Pipelines',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Dinomite-Studios', // Usually your GitHub org/user name.
+  projectName: 'unity-azure-pipelines-tasks', // Usually your repo name.
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'Unity Tools for Azure DevOps',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
@@ -23,7 +23,7 @@ module.exports = {
           position: 'left',
         },
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks',
           label: 'GitHub',
           position: 'right',
         },
@@ -42,41 +42,33 @@ module.exports = {
             {
               label: 'Second Doc',
               to: 'docs/doc2/',
-            },
+            }
           ],
         },
         {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
+              href: 'https://discord.gg/RpHSpxkEP6',
+            }
           ],
         },
         {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: 'blog',
+              label: 'Dinomite Studios Website',
+              to: 'https://www.dinomitestudios.com/',
             },
             {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
+              label: 'Dinomite Studios on GitHub',
+              href: 'https://github.com/Dinomite-Studios',
+            }
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Dinomite Studios. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -85,15 +77,13 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks-docs/edit/development/website/',
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+            'https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks-docs/edit/development/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
