@@ -25,7 +25,7 @@ module.exports = {
         },
         {
           href: 'https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks',
-          label: 'GitHub',
+          label: 'Source Code',
           position: 'right',
         },
       ],
@@ -73,7 +73,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Dinomite Studios. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Dinomite Studios`,
     },
   },
   presets: [
