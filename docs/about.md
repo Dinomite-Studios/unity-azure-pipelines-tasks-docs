@@ -2,202 +2,66 @@
 id: about
 title: About Unity Tools for Azure DevOps
 sidebar_label: About
+keywords:
+   - Unity
+   - Azure
+   - DevOps
+   - Pipelines
+   - GitHub
 slug: /
 ---
 
-You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
-
-## Markdown Syntax
-
-To serve as an example page when styling markdown based Docusaurus sites.
-
-## Headers
-
-# H1 - Create the best documentation
-
-## H2 - Create the best documentation
-
-### H3 - Create the best documentation
-
-#### H4 - Create the best documentation
-
-##### H5 - Create the best documentation
-
-###### H6 - Create the best documentation
-
----
-
-## Emphasis
-
-Emphasis, aka italics, with *asterisks* or _underscores_.
-
-Strong emphasis, aka bold, with **asterisks** or __underscores__.
-
-Combined emphasis with **asterisks and _underscores_**.
-
-Strikethrough uses two tildes. ~~Scratch this.~~
-
----
-
-## Lists
-
-1. First ordered list item
-1. Another item
-   - Unordered sub-list.
-1. Actual numbers don't matter, just that it's a number
-   1. Ordered sub-list
-1. And another item.
-
-* Unordered list can use asterisks
-
-- Or minuses
-
-+ Or pluses
-
----
-
-## Links
-
-[I'm an inline-style link](https://www.google.com/)
-
-[I'm an inline-style link with title](https://www.google.com/ "Google's Homepage")
-
-[I'm a reference-style link][arbitrary case-insensitive reference text]
-
-[You can use numbers for reference-style link definitions][1]
-
-Or leave it empty and use the [link text itself].
-
-URLs and URLs in angle brackets will automatically get turned into links. http://www.example.com/ or <http://www.example.com/> and sometimes example.com (but not on GitHub, for example).
-
-Some text to show that the reference links can follow later.
-
-[arbitrary case-insensitive reference text]: https://www.mozilla.org/
-[1]: http://slashdot.org/
-[link text itself]: http://www.reddit.com/
-
----
-
-## Images
-
-Here's our logo (hover to see the title text):
-
-Inline-style: ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png 'Logo Title Text 1')
-
-Reference-style: ![alt text][logo]
-
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png 'Logo Title Text 2'
-
-Images from any folder can be used by providing path to file. Path should be relative to markdown file.
-
-![img](../static/img/logo.svg)
-
----
-
-## Code
-
-```javascript
-var s = 'JavaScript syntax highlighting';
-alert(s);
-```
-
-```python
-s = "Python syntax highlighting"
-print(s)
-```
-
-```
-No language indicated, so no syntax highlighting.
-But let's throw in a <b>tag</b>.
-```
-
-```js {2}
-function highlightMe() {
-  console.log('This line can be highlighted!');
-}
-```
-
----
-
-## Tables
-
-Colons can be used to align columns.
-
-| Tables        |      Are      |   Cool |
-| ------------- | :-----------: | -----: |
-| col 3 is      | right-aligned | \$1600 |
-| col 2 is      |   centered    |   \$12 |
-| zebra stripes |   are neat    |    \$1 |
-
-There must be at least 3 dashes separating each header cell. The outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.
-
-| Markdown | Less      | Pretty     |
-| -------- | --------- | ---------- |
-| _Still_  | `renders` | **nicely** |
-| 1        | 2         | 3          |
-
----
-
-## Blockquotes
-
-> Blockquotes are very handy in email to emulate reply text. This line is part of the same quote.
-
-Quote break.
-
-> This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can _put_ **Markdown** into a blockquote.
-
----
-
-## Inline HTML
-
-<dl>
-  <dt>Definition list</dt>
-  <dd>Is something people use sometimes.</dd>
-
-  <dt>Markdown in HTML</dt>
-  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
-</dl>
-
----
-
-## Line Breaks
-
-Here's a line for us to start with.
-
-This line is separated from the one above by two newlines, so it will be a _separate paragraph_.
-
-This line is also a separate paragraph, but... This line is only separated by a single newline, so it's a separate line in the _same paragraph_.
-
----
-
-## Admonitions
-
 :::note
 
-This is a note
+This documentation assumes you have some knowledge of setting up pipelines using Azure DevOps/Pipelines. If you have questions beyond the scope of this documentation check out this [guide](https://docs.microsoft.com/en-us/azure/devops/pipelines/create-first-pipeline?view=azure-devops&tabs=java%2Ctfs-2018-2%2Cbrowser) to get started with your first Azure Pipeline or join our [Discord](https://discord.gg/RpHSpxkEP6) to find help.
 
 :::
 
-:::tip
+## What is it?
 
-This is a tip
+It's an extension to [Azure DevOps](https://azure.microsoft.com/en-us/services/devops/) that adds build and release tasks specifially for [Unity](https://unity.com/) projects. That way it enables implementation of continuous integration and deployment pipelines for an improved workflow that saves time and money.
 
-:::
+---
 
-:::important
+## How to install
 
-This is important
+The extension is published to the Visual Studio Marketplace and can be installed from there:
 
-:::
+1. Open the extension [Unity Tools for Azure DevOps](https://marketplace.visualstudio.com/items?itemName=DinomiteStudios.64e90d50-a9c0-11e8-a356-d3eab7857116) in the marketplace and select `Get it free` to start the installation process.
+   
+   ![Extension in Marketplace](../static/img/vs-marketplace-get-extension.png)
+
+2. Select the Azure DevOps organization you want to install the extension to and proceed by selecting `Install`. *(You may also download the extension if you are using Azure DevOps Server).*
+   
+   ![Install to organization](../static/img/vs-marketplace-install.PNG)
+
+3. The extension is now installed and you are ready to create your first Unity pipeline.
+
+---
+
+## Supported Unity Versions
+
+Unity Tools for Azure DevOps supports building Unity projects starting from `5.x` up to the `latest release` of the Unity editor.
+
+---
+
+## Supported Agents
+
+The extension generally supports Microsoft hosted agents as well as custom agents. Some features may not be available when using hosted agents for older Unity versions and platforms that require setting up e.g. specific SDKs on the machine for builds to work. In such cases, we recommend using a custom agent with full control over tools and software installed.
+
+### Supported Platforms for Hosted Agents
+
+- Standalone Windows
+- Standalone macOS
+- Standalone Linux
+- Universal Windows Platform
 
 :::caution
 
-This is a caution
+Please note that a Unity Plus / Pro seat with at least one available activation is required to build using hosted agents. This is a requirement by Unity not this extension. The agent will activate the seat on build and release it again once done.
 
 :::
 
-:::warning
+### Supported Platforms for Custom Agents
 
-This is a warning
-
-:::
+- All Unity Platforms supported

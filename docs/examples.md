@@ -1,19 +1,21 @@
 ---
 id: examples
-title: Introduction
+title: Examples Overview
 ---
 
-This is a link to [another document.](doc3.md) This is a link to an [external page.](http://www.example.com/)
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
 
-You can write JSX and use React components within your Markdown thanks to [MDX](https://mdxjs.com/).
-
-export const Highlight = ({children, color}) => ( <span style={{
-      backgroundColor: color,
-      borderRadius: '2px',
-      color: '#fff',
-      padding: '0.2rem',
-    }}>{children}</span> );
-
-<Highlight color="#25c2a0">Docusaurus green</Highlight> and <Highlight color="#1877F2">Facebook blue</Highlight> are my favorite colors.
-
-I can write **Markdown** alongside my _JSX_!
+<Tabs
+  defaultValue="yaml"
+  values={[
+    {label: 'YAML', value: 'yaml'},
+    {label: 'Classic Editor', value: 'classic'}
+  ]}>
+  <TabItem value="apple">
+  This is an apple 🍎
+  </TabItem>
+  <TabItem value="orange">
+  This is an orange 🍊
+  </TabItem>
+</Tabs>

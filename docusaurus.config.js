@@ -83,12 +83,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks-docs/edit/development/website/',
+            'https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks-docs/edit/development/',
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            'https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks-docs/edit/development/website/blog/',
+            'https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks-docs/edit/development/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
