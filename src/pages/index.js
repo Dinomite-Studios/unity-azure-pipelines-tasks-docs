@@ -12,12 +12,12 @@ const features = [
     imageUrl: 'img/undraw_dev_productivity_umsq.svg',
     description: (
       <>
-        Get started automating your Unity builds and save precious time in a breeze! Check the <a href="/docs">Documentation</a> to learn more.
+        Get started automating your Unity builds and save precious time in a breeze! Check the <a href="/docs">documentation</a> to learn more.
       </>
     ),
   },
   {
-    title: 'Improve your Quality Assurance',
+    title: 'Improved QA',
     imageUrl: 'img/undraw_fixing_bugs_w7gi.svg',
     description: (
       <>
