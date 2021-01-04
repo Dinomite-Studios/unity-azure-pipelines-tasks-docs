@@ -114,17 +114,17 @@ import TabItem from '@theme/TabItem';
   ]}>
   <TabItem value="yaml">
   <p>
-  In the simple YAML example below we are definiing the task a step in the pipeilne using <code>- task: UnityCMDTask@1</code>. We are also
-  giving the task a reference name using <code>name: unitycmd</code>, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the <code>logsOutputPath</code> output variable to the console using <code>echo $(unitycmd.logsOutputPath)</code>. For <code>cmdArgs</code> we specify that Unity should target the <code>standalone</code> platform and execute our custom build script <code>MyBuildTools.BuildProject</code> to perform the build.
+  In the simple YAML example below we are definiing the task a step in the pipeilne using <code>- task: UnityActivateLicenseTask@1</code>. We are also
+  giving the task a reference name using <code>name: unityactivation</code>, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the <code>logsOutputPath</code> output variable to the console using <code>echo $(unityactivation.logsOutputPath)</code>. For <code>username</code>, <code>password</code> and <code>serial</code> we use shared pipeline variables created previously that contain the user credentials for activating Unity.
   </p>
-  <img src="../static/img/unity-cmd-task/unity-cmd-yaml.png" alt="Classic Pipeline YAML Task Configuration"/>
+  <img src="../static/img/unity-activate-license-task/unity-activate-license-yaml.png" alt="Classic Pipeline YAML Task Configuration"/>
   </TabItem>
   <TabItem value="classic">
   <p>
-  The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set <code>Unity editors location</code> to use the default Unity Hub installation path to lookup installed Unity editor versions on the agent running our pipeline. We are also leaving the <code>Unity project path</code> field empty, since we know our Unity project is in the repository root. For <code>Command line arguments</code> we specify that Unity should target the <code>standalone</code> platform and execute our custom build script <code>MyBuildTools.BuildProject</code> to perform the build. We are also assigning a <code>Reference name</code> to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the <code>logsOutputPath</code> output variable and insert it into any other input field of a task we can then use <code>$(unitycmd.logsOutputPath)</code>.
+  The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set variables, which we previously defined, for the <code>username</code>, <code>password</code> and <code>serial</code> inputs. For <code>Unity editors location</code> we tell the task to use the default Unity Hub installation path to lookup installed Unity editor versions on the agent running our pipeline. We are also leaving the <code>Unity project path</code> field empty, since we know our Unity project is in the repository root. We are also assigning a <code>Reference name</code> to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the <code>logsOutputPath</code> output variable and insert it into any other input field of a task we can then use <code>$(unityactivation.logsOutputPath)</code>.
   </p>
 
-  <img src="../static/img/unity-cmd-task/unity-cmd-classic.png" alt="Classic Pipeline Designer Task Configuration"/>
+  <img src="../static/img/unity-activate-license-task/unity-activate-license-classic.png" alt="Classic Pipeline Designer Task Configuration"/>
   </TabItem>
 </Tabs>
 
@@ -134,4 +134,4 @@ import TabItem from '@theme/TabItem';
 
 When run and successful the task will provide log output similar to this:
 
-![Task Log](../static/img/unity-cmd-task/unity-cmd-log.png)
+![Task Log](../static/img/unity-activate-license-task/unity-activate-license-log.png)

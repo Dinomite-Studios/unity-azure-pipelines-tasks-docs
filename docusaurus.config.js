@@ -24,6 +24,11 @@ module.exports = {
           position: 'left',
         },
         {
+          href: 'https://discord.gg/RpHSpxkEP6',
+          label: 'Discord',
+          position: 'left'
+        },
+        {
           href: 'https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks',
           label: 'Source Code',
           position: 'right',
