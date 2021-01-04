@@ -39,12 +39,6 @@ Make sure to set `unityEditorsPathMode` to `specify` for this input to take effe
 
 **Default Value**: -
 
-#### Options:
-
-| Value                          | Description                                                                          |
-| ------------------------------ | ------------------------------------------------------------------------------------ |
-| e.g. "E:\Unity Installations\" | Instructs the task to look for installed Unity versions at E:\Unity Installations\ . |
-
 ### unityProjectPath
 
 Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root.
@@ -52,13 +46,6 @@ Enter the directory path to the Unity project. If no value is entered, the proje
 **Required**: No
 
 **Default Value**: -
-
-#### Options:
-
-| Value             | Description                                                    |
-| ----------------- | -------------------------------------------------------------- |
-| -                 | Looks for the Unity project in the repository root.            |
-| e.g. "TheProject" | Looks for the Unity project in <(repository root)>/TheProject. |
 
 ### cmdArgs
 

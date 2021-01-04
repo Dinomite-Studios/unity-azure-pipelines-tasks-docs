@@ -23,13 +23,6 @@ Enter the directory path to the Unity project. If no value is entered, the proje
 
 **Default Value**: -
 
-#### Options:
-
-| Value             | Description                                                    |
-| ----------------- | -------------------------------------------------------------- |
-| -                 | Looks for the Unity project in the repository root.            |
-| e.g. "TheProject" | Looks for the Unity project in <(repository root)>/TheProject. |
-
 ---
 
 ## Outputs
