@@ -9,22 +9,42 @@ This task will find the Unity Editor version the project was last opened with. T
 when you need to perform steps in your pipeline that depend on which Unity version is required for the project to build
 and run. You can find the task when editing your pipeline by searching for the name `Unity Get Project Version`.
 
+---
+
 ## Inputs
 
-This task supports following inputs:
+This task supports input variables for configuration.
 
-| Name             | optional/required? | Description                                                                                                                 |
-| ---------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| unityProjectPath | optional           | Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root. |
+### unityProjectPath
+
+Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root.
+
+**Required**: No
+
+**Default Value**: -
+
+#### Options:
+
+| Value             | Description                                                    |
+| ----------------- | -------------------------------------------------------------- |
+| -                 | Looks for the Unity project in the repository root.            |
+| e.g. "TheProject" | Looks for the Unity project in <(repository root)>/TheProject. |
+
+---
 
 ## Outputs
 
-This task will provide following outputs:
+This task provides output variables.
 
-| Name                   | Description                                                                          |
-| ---------------------- | ------------------------------------------------------------------------------------ |
-| projectVersion         | The project version found by the task for the specified Unity project.               |
-| projectVersionRevision | The Unity editor version revision found by the task for the specified Unity project. |
+### projectVersion
+
+The project version found by the task for the specified Unity project.
+
+### projectVersionRevision
+
+The Unity editor version revision found by the task for the specified Unity project.
+
+---
 
 ## How to use
 
@@ -56,6 +76,8 @@ import TabItem from '@theme/TabItem';
   <img src="../static/img/unity-get-project-version-task/get-project-version-classic.png" alt="Classic Pipeline Designer Task Configuration"/>
   </TabItem>
 </Tabs>
+
+---
 
 ## Log
 
