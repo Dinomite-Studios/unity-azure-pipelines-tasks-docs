@@ -41,7 +41,7 @@ The extension is published to the Visual Studio Marketplace and can be installed
 
 ## Supported Unity Versions
 
-Unity Tools for Azure DevOps supports building Unity projects starting from `5.x` up to the `latest release` of the Unity editor.
+Unity Tools for Azure DevOps supports building Unity projects starting from `2017.2.0f1` up to the `latest release` of the Unity editor.
 
 ---
 

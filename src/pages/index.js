@@ -21,7 +21,7 @@ const features = [
     imageUrl: 'img/undraw_fixing_bugs_w7gi.svg',
     description: (
       <>
-        Run tests on your automated builds to find bugs and other issues in your Unity based projects early and eliminate breaking builds in your production environment.
+        Using CI a breaking build will never surprise you again. Find issues early in development and run automated tests to improve the overall quality of your project.
       </>
     ),
   },
