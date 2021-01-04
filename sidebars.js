@@ -13,9 +13,9 @@ module.exports = {
       items: ['features',
         'unity-build-task',
         'unity-get-project-version-task',
-        'unity-cmd-task',
         'unity-activate-license-task',
-        'unity-test-task'],
+        'unity-test-task',
+        'unity-cmd-task'],
     },
     {
       type: 'category',
