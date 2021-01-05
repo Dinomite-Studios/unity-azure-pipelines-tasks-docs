@@ -8,11 +8,11 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'Easy to Use',
+    title: 'Save Time and Money',
     imageUrl: 'img/undraw_dev_productivity_umsq.svg',
     description: (
       <>
-        Get started automating your Unity builds and save precious time in a breeze! Check the <a href="/docs">documentation</a> to learn more.
+        Setup is easy and fast. Get started automating your Unity builds and save precious time in a breeze! Check the <a href="/docs">documentation</a> to learn more.
       </>
     ),
   },
@@ -30,7 +30,7 @@ const features = [
     imageUrl: 'img/undraw_open_source_1qxw.svg',
     description: (
       <>
-        The extension is free to use and source code is available on <a href="https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks" target="_blank">GitHub</a>. Need a feature or found a bug? File an issue or implement it yourself!
+        The extension is free to use and source code is available on <a href="https://github.com/Dinomite-Studios/unity-azure-pipelines-tasks" target="_blank">GitHub</a>. Need a feature or found a bug? File an issue or submit a pull request!
       </>
     ),
   },
