@@ -1,33 +1,43 @@
-# Website
+# Unity Tools for Azure DevOps Documentation
 
-This website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+[![Documentation](./static/img/page-preview.png)](https://www.unitydevops.com)
 
-## Installation
+This repository contains the documentation website for [Unity Tools for Azure DevOps](https://marketplace.visualstudio.com/items?itemName=DinomiteStudios.64e90d50-a9c0-11e8-a356-d3eab7857116). A collection of tools and tasks for working with Unity based projects. The website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+
+## Branches
+
+- `main`: The main branch is build and deployed to [www.unitydevops.com](https://www.unitydevops.com)
+- `development`: This branch contains latest in development features, fixes and changes and is merged to `main` once stable
+
+## Contributions
+
+Found and fixed a bug or improvement on something? Contributions are welcome! Please target your pull request
+against the `development` branch.
+
+## Development Instructions
+
+### Installation
 
 ```console
-yarn install
+npm install
 ```
 
-## Local Development
+### Local Development
 
 ```console
-yarn start
+npm run start
 ```
 
 This command starts a local development server and open up a browser window. Most changes are reflected live without having to restart the server.
 
-## Build
+### Build
 
 ```console
-yarn build
+npm run build
 ```
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
-## Deployment
+### Deployment
 
-```console
-GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+The website is deployed via CI/CD when a pull request to the `main` branch has been merged.
