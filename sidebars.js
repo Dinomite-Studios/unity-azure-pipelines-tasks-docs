@@ -21,7 +21,9 @@ module.exports = {
       type: 'category',
       label: 'Examples',
       collapsed: false,
-      items: ['examples'],
+      items: [
+        'examples',
+        'example-standalone-0'],
     }
   ],
 };
