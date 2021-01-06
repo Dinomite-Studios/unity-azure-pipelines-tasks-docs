@@ -3,19 +3,5 @@ id: examples
 title: Examples Overview
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-
-<Tabs
-  defaultValue="yaml"
-  values={[
-    {label: 'YAML', value: 'yaml'},
-    {label: 'Classic Editor', value: 'classic'}
-  ]}>
-  <TabItem value="apple">
-  This is an apple 🍎
-  </TabItem>
-  <TabItem value="orange">
-  This is an orange 🍊
-  </TabItem>
-</Tabs>
+We have prepared a collection of useful pipeline examples / templates you can copy-paste and adjust to your needs. In case you don't find the right example,
+don't hesitate to get in touch via [Discord](https://discord.gg/RpHSpxkEP6) and we'll try and help you out.
