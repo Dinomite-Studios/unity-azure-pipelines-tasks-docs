@@ -1,0 +1,53 @@
+trigger:
+- main
+- development
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: 'ftp-variables'
+
+steps:
+- task: Npm@1
+  displayName: 'npm install'
+  inputs:
+    command: 'install'
+
+- task: Npm@1
+  displayName: 'npm run build'
+  inputs:
+    command: 'custom'
+    customCommand: 'run build'
+
+- task: CopyFiles@2
+  displayName: 'Copy files to artifact staging'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  inputs:
+    SourceFolder: '/build'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+    OverWrite: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts to Azure Pipelines'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'website'
+    publishLocation: 'Container'
+
+- task: FtpUpload@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  inputs:
+    credentialsOption: 'inputs'
+    serverUrl: '$(ftp.server)'
+    username: '$(ftp.username)'
+    password: '$(ftp.password)'
+    rootDirectory: '$(Build.ArtifactStagingDirectory)'
+    filePatterns: '**'
+    remoteDirectory: '/unitydevops.com'
+    clean: true
+    preservePaths: true
+    trustSSL: true
