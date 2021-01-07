@@ -38,7 +38,8 @@ steps:
     ArtifactName: 'website'
     publishLocation: 'Container'
 
-- task: FtpUpload@2
+- task: FtpUpload@1
+  displayName: 'Deploy website via FTP'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
   inputs:
     credentialsOption: 'inputs'
