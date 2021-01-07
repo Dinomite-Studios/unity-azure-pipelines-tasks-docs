@@ -24,7 +24,7 @@ steps:
   displayName: 'Copy files to artifact staging'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
   inputs:
-    SourceFolder: '/build'
+    SourceFolder: 'build'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
