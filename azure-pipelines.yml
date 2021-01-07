@@ -47,7 +47,7 @@ steps:
     password: '$(ftp.password)'
     rootDirectory: '$(Build.ArtifactStagingDirectory)'
     filePatterns: '**'
-    remoteDirectory: '/unitydevops.com'
+    remoteDirectory: 'unitydevops.com'
     clean: true
     preservePaths: true
     trustSSL: true
