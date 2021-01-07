@@ -16,3 +16,19 @@ steps:
   inputs:
     command: 'custom'
     customCommand: 'run build'
+
+- task: CopyFiles@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  inputs:
+    SourceFolder: '/build'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+    OverWrite: true
+
+- task: PublishBuildArtifacts@1
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'website'
+    publishLocation: 'Container'
