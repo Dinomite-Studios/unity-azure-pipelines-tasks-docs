@@ -6,8 +6,10 @@ This repository contains the documentation website for [Unity Tools for Azure De
 
 ## Branches
 
-- `main`: The main branch is build and deployed to [www.unitydevops.com](https://www.unitydevops.com)
-- `development`: This branch contains latest in development features, fixes and changes and is merged to `main` once stable
+| Branch      | Description                                                                                                 | Status                                                                                                                                                          |
+| ----------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| main        | The main branch is build and deployed to [www.unitydevops.com](https://www.unitydevops.com)                 | ![Build Status](https://dev.azure.com/dinomite/Unity%20Tools%20for%20Azure%20DevOps/_apis/build/status/unity-azure-pipelines-tasks-docs?branchName=main)        |
+| development | This branch contains latest in development features, fixes and changes and is merged to `main` once stable. | ![Build Status](https://dev.azure.com/dinomite/Unity%20Tools%20for%20Azure%20DevOps/_apis/build/status/unity-azure-pipelines-tasks-docs?branchName=development) |
 
 ## Contributions
 
