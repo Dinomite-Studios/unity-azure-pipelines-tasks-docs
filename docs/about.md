@@ -33,7 +33,7 @@ The extension is published to the Visual Studio Marketplace and can be installed
 
 2. Select the Azure DevOps organization you want to install the extension to and proceed by selecting `Install`. *(You may also download the extension if you are using Azure DevOps Server).*
    
-   ![Install to organization](../static/img/vs-marketplace-install.PNG)
+   ![Install to organization](../static/img/vs-marketplace-install.png)
 
 3. The extension is now installed and you are ready to create your first Unity pipeline.
 
