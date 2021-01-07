@@ -2,7 +2,7 @@
 
 [![Documentation](./static/img/page-preview.png)](https://www.unitydevops.com)
 
-This repository contains the documentation website for [Unity Tools for Azure DevOps](https://marketplace.visualstudio.com/items?itemName=DinomiteStudios.64e90d50-a9c0-11e8-a356-d3eab7857116). A collection of tools and tasks for working with Unity based projects. The website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
+This repository contains the documentation website for [Unity Tools for Azure DevOps](https://marketplace.visualstudio.com/items?itemName=DinomiteStudios.64e90d50-a9c0-11e8-a356-d3eab7857116). A collection of tools and tasks for working with Unity based projects on Azure DevOps. The website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
 
 ## Branches
 

@@ -1,14 +1,18 @@
 module.exports = {
   title: 'Unity Tools for Azure DevOps',
   tagline: 'Set up CI/CD for Unity projects powered by Azure Pipelines',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://www.unitydevops.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'Dinomite-Studios',
-  projectName: 'unity-azure-pipelines-tasks',
+  projectName: 'unity-azure-pipelines-tasks-docs',
   themeConfig: {
+    googleAnalytics: {
+      trackingID: 'G-W9FFRR7HX3',
+      anonymizeIP: true
+    },
     navbar: {
       title: 'Unity Tools for Azure DevOps',
       logo: {
