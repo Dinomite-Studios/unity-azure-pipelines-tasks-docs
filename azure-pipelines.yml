@@ -42,7 +42,7 @@ steps:
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
   inputs:
     credentialsOption: 'inputs'
-    serverUrl: 'ssh.strato.de'
+    serverUrl: 'sftp://ssh.strato.de:22'
     username: '$(ftp.username)'
     password: '$(ftp.password)'
     rootDirectory: '$(Build.ArtifactStagingDirectory)'
