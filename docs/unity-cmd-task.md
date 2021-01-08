@@ -81,32 +81,33 @@ Path to the Unity editor log files generated while executing the task. Use this 
 
 Here's a simple example of how to use and define the task in your pipeline. For more examples, check the [Examples Collection](./examples.md).
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+### YAML
 
-<Tabs
-  lazy
-  groupId="pipeline-editing-tool"
-  defaultValue="yaml"
-  values={[
-    {label: 'YAML', value: 'yaml'},
-    {label: 'Classic Editor', value: 'classic'}
-  ]}>
-  <TabItem value="yaml">
-  <p>
-  In the simple YAML example below we are definiing the task a step in the pipeilne using <code>- task: UnityCMDTask@1</code>. We are also
-  giving the task a reference name using <code>name: unitycmd</code>, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the <code>logsOutputPath</code> output variable to the console using <code>echo $(unitycmd.logsOutputPath)</code>. For <code>cmdArgs</code> we specify that Unity should target the <code>standalone</code> platform and execute our custom build script <code>MyBuildTools.BuildProject</code> to perform the build.
-  </p>
-  <img src="../static/img/unity-cmd-task/unity-cmd-yaml.png" alt="Classic Pipeline YAML Task Configuration"/>
-  </TabItem>
-  <TabItem value="classic">
-  <p>
-  The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set <code>Unity editors location</code> to use the default Unity Hub installation path to lookup installed Unity editor versions on the agent running our pipeline. We are also leaving the <code>Unity project path</code> field empty, since we know our Unity project is in the repository root. For <code>Command line arguments</code> we specify that Unity should target the <code>standalone</code> platform and execute our custom build script <code>MyBuildTools.BuildProject</code> to perform the build. We are also assigning a <code>Reference name</code> to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the <code>logsOutputPath</code> output variable and insert it into any other input field of a task we can then use <code>$(unitycmd.logsOutputPath)</code>.
-  </p>
+In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityCMDTask@1`. We are also giving the task a reference name using `name: unitycmd`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `logsOutputPath` output variable to the console using `echo $(unitycmd.logsOutputPath)`. For `cmdArgs` we specify that Unity should target the `standalone` platform and execute our custom build script `MyBuildTools.BuildProject` to perform the build.
 
-  <img src="../static/img/unity-cmd-task/unity-cmd-classic.png" alt="Classic Pipeline Designer Task Configuration"/>
-  </TabItem>
-</Tabs>
+```yaml
+trigger:
+- main
+
+pool:
+  name: Unity Windows
+
+steps:
+- task: UnityCMDTask@1
+  name: unitycmd
+  inputs:
+    unityEditorsPathMode: unityHub
+    cmdArgs: -buildTarget standalone -executeMethod MyBuildTools.BuildProject
+
+- script: |
+    echo $(unitycmd.logsOutputPath)
+```
+
+### Classic Pipeline Editor
+
+The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Unity editors location` to use the default Unity Hub installation path to lookup installed Unity editor versions on the agent running our pipeline. We are also leaving the `Unity project path` field empty, since we know our Unity project is in the repository root. For `Command line arguments` we specify that Unity should target the `standalone` platform and execute our custom build script `MyBuildTools.BuildProject` to perform the build. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `logsOutputPath` output variable and insert it into any other input field of a task we can then use `$(unitycmd.logsOutputPath)`.
+
+![Classic Pipeline Designer Task Configuration](../static/img/unity-cmd-task/unity-cmd-classic.png)
 
 ---
 

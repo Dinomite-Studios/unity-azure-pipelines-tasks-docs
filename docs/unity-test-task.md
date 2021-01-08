@@ -149,32 +149,32 @@ Path to the Unity editor log files generated while executing the task. Use this 
 
 Here's a simple example of how to use and define the task in your pipeline. For more examples, check the [Examples Collection](./examples.md).
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+### YAML
 
-<Tabs
-  lazy
-  groupId="pipeline-editing-tool"
-  defaultValue="yaml"
-  values={[
-    {label: 'YAML', value: 'yaml'},
-    {label: 'Classic Editor', value: 'classic'}
-  ]}>
-  <TabItem value="yaml">
-  <p>
-  In the simple YAML example below we are definiing the task a step in the pipeilne using <code>- task: UnityTestTask@1</code>. We are also
-  giving the task a reference name using <code>name: unitytest</code>, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the <code>testResultsOutputPathAndFileName</code> output variable to the console using <code>echo $(unitytest.testResultsOutputPathAndFileName)</code>. For <code>testMode</code> we specify that we want to run in <code>editMode</code>. Everything else we are leaving at the defaults.
-  </p>
-  <img src="../static/img/unity-test-task/unity-test-yaml.png" alt="Classic Pipeline YAML Task Configuration"/>
-  </TabItem>
-  <TabItem value="classic">
-  <p>
-  The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set <code>Test mode</code> to <code>Edit Mode</code>, that means we are running tests that will also include the Unity Editor assembly and APIs. This is e.g. useful when testing editor extensions. We are also assigning a <code>Reference name</code> to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the <code>testResultsOutputPathAndFileName</code> output variable and insert it into any other input field of a task we can then use <code>$(unitytest.testResultsOutputPathAndFileName)</code>. Everything else we are leaving at the defaults.
-  </p>
+In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityTestTask@1`. We are also giving the task a reference name using `name: unitytest`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `testResultsOutputPathAndFileName` output variable to the console using `echo $(unitytest.testResultsOutputPathAndFileName)`. For `testMode` we specify that we want to run in `editMode`. Everything else we are leaving at the defaults.
 
-  <img src="../static/img/unity-test-task/unity-test-classic.png" alt="Classic Pipeline Designer Task Configuration"/>
-  </TabItem>
-</Tabs>
+```yaml
+trigger:
+- main
+
+pool:
+  name: Unity Windows
+
+steps:
+- task: UnityTestTask@1
+  name: unitytest
+  inputs:
+    testMode: editMode
+
+- script: |
+    echo $(unitytest.testResultsOutputPathAndFileName)
+```
+
+### Classic Pipeline Editor
+
+The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Test mode` to `Edit Mode`, that means we are running tests that will also include the Unity Editor assembly and APIs. This is e.g. useful when testing editor extensions. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `testResultsOutputPathAndFileName` output variable and insert it into any other input field of a task we can then use `$(unitytest.testResultsOutputPathAndFileName)`. Everything else we are leaving at the defaults.
+
+![Classic Pipeline Designer Task Configuration](../static/img/unity-test-task/unity-test-classic.png)
 
 ---
 

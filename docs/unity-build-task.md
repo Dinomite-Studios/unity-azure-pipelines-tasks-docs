@@ -169,32 +169,34 @@ Path to the Unity editor log files generated while executing the task. Use this 
 
 Here's a simple example of how to use and define the task in your pipeline. For more examples, check the [Examples Collection](./examples.md).
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+### YAML
 
-<Tabs
-  lazy
-  groupId="pipeline-editing-tool"
-  defaultValue="yaml"
-  values={[
-    {label: 'YAML', value: 'yaml'},
-    {label: 'Classic Editor', value: 'classic'}
-  ]}>
-  <TabItem value="yaml">
-  <p>
-  In the simple YAML example below we are definiing the task a step in the pipeilne using <code>- task: UnityBuildTask@3</code>. We are also
-  giving the task a reference name using <code>name: unitybuild</code>, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the <code>logsOutputPath</code> output variable to the console using <code>echo $(unitybuild.logsOutputPath)</code>. For <code>buildTarget</code> we specify that Unity should target the <code>standalone</code> platform. Our output file will be named <code>drop.exe</code> in this example.
-  </p>
-  <img src="../static/img/unity-build-task/unity-build-yaml.png" alt="Classic Pipeline YAML Task Configuration"/>
-  </TabItem>
-  <TabItem value="classic">
-  <p>
-  The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set <code>Build target</code> to <code>Standalone (agent-based)</code>, that means if our pipeline runs on a Windows agent we get a Windows built and if on a mac we'll get a macOS build. We are also assigning a <code>Reference name</code> to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the <code>logsOutputPath</code> output variable and insert it into any other input field of a task we can then use <code>$(unitybuild.logsOutputPath)</code>. Everything else we are leaving at the defaults.
-  </p>
+In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityBuildTask@3`. We are also giving the task a reference name using `name: unitybuild`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `logsOutputPath` output variable to the console using `echo $(unitybuild.logsOutputPath)`. For `buildTarget` we specify that Unity should target the `standalone` platform. Our output file will be named `drop.exe` in this example.
 
-  <img src="../static/img/unity-build-task/unity-build-classic.png" alt="Classic Pipeline Designer Task Configuration"/>
-  </TabItem>
-</Tabs>
+```yaml
+trigger:
+- main
+
+pool:
+  name: Unity Windows
+
+steps:
+- task: UnityBuildTask@3
+  name: unitybuild
+  inputs:
+    buildTarget: standalone
+    outputPath: $(Build.BinariesDirectory)
+    outputFileName: drop
+
+- script: |
+    echo $(unitybuild.logsOutputPath)
+```
+
+### Classic Pipeline Editor
+
+The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Build target` to `Standalone (agent-based)`, that means if our pipeline runs on a Windows agent we get a Windows built and if on a mac we'll get a macOS build. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `logsOutputPath` output variable and insert it into any other input field of a task we can then use `$(unitybuild.logsOutputPath)`. Everything else we are leaving at the defaults.
+
+![Classic Pipeline Designer Task Configuration](../static/img/unity-build-task/unity-build-classic.png)
 
 ---
 
