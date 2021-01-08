@@ -28,6 +28,12 @@ module.exports = {
           position: 'left',
         },
         {
+          to: 'roadmap/',
+          activeBasePath: 'roadmap',
+          label: 'Roadmap',
+          position: 'left',
+        },
+        {
           href: 'https://discord.gg/RpHSpxkEP6',
           label: 'Join Our Discord',
           position: 'left'
