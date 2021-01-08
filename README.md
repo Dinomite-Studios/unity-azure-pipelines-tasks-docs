@@ -13,7 +13,7 @@ This repository contains the documentation website for [Unity Tools for Azure De
 
 ## Contributions
 
-Found and fixed a bug or improvement on something? Contributions are welcome! Please target your pull request
+Found and fixed a bug or improved on something? Contributions are welcome! Please target your pull request
 against the `development` branch.
 
 ## Development Instructions
