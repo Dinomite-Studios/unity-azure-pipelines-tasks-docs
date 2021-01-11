@@ -13,6 +13,10 @@ module.exports = {
       trackingID: 'G-W9FFRR7HX3',
       anonymizeIP: true
     },
+    gtag: {
+      trackingID: 'G-W9FFRR7HX3',
+      anonymizeIP: true
+    },
     navbar: {
       title: 'Unity Tools for Azure DevOps',
       logo: {
