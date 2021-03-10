@@ -50,5 +50,7 @@ steps:
     filePatterns: '**'
     remoteDirectory: 'unitydevops.com'
     clean: true
+    cleanContents: false
+    overwrite: true
     preservePaths: true
     trustSSL: true
