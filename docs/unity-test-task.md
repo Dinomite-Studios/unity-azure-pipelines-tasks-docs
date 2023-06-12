@@ -54,6 +54,14 @@ Make sure to set `unityEditorsPathMode` to `specify` for this input to take effe
 
 **Default Value**: -
 
+### unityVersion
+
+The version number of Unity to use. This is required to avoid any pathing issues, and can be obtained dynamically from using the `UnityGetProjectVersionTask` task.
+
+**Required**: Yes
+
+**Default Value**: -
+
 ### unityProjectPath
 
 Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root.
@@ -151,7 +159,7 @@ Here's a simple example of how to use and define the task in your pipeline. For 
 
 ### YAML
 
-In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityTestTask@1`. We are also giving the task a reference name using `name: unitytest`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `testResultsOutputPathAndFileName` output variable to the console using `echo $(unitytest.testResultsOutputPathAndFileName)`. For `testMode` we specify that we want to run in `editMode`. Everything else we are leaving at the defaults.
+In the simple YAML example below we are definiing the task a step in the pipeline using `- task: UnityTestTask@1`. We are also giving the task a reference name using `name: unitytest`, so we can use it to reference the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `testResultsOutputPathAndFileName` output variable to the console using `echo $(unitytest.testResultsOutputPathAndFileName)`. For `testMode` we specify that we want to run in `editMode`. To avoid any pathing issues, we also need to add a `UnityGetProjectVersionTask` step, and set the `unityVersion` input to `$(unitygetprojectversion.projectVersion)`. Everything else we are leaving at the defaults.
 
 ```yaml
 trigger:
@@ -161,9 +169,13 @@ pool:
   name: Unity Windows
 
 steps:
+- task: UnityGetProjectVersionTask@1
+  name: unitygetprojectversion
+
 - task: UnityTestTask@1
   name: unitytest
   inputs:
+    unityVersion: $(unitygetprojectversion.projectVersion)
     testMode: editMode
 
 - script: |
@@ -172,7 +184,7 @@ steps:
 
 ### Classic Pipeline Editor
 
-The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Test mode` to `Edit Mode`, that means we are running tests that will also include the Unity Editor assembly and APIs. This is e.g. useful when testing editor extensions. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `testResultsOutputPathAndFileName` output variable and insert it into any other input field of a task we can then use `$(unitytest.testResultsOutputPathAndFileName)`. Everything else we are leaving at the defaults.
+The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Test mode` to `Edit Mode`, that means we are running tests that will also include the Unity Editor assembly and APIs. This is e.g. useful when testing editor extensions. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `testResultsOutputPathAndFileName` output variable and insert it into any other input field of a task we can then use `$(unitytest.testResultsOutputPathAndFileName)`. To avoid any pathing issues, we also need to add a `UnityGetProjectVersionTask` step, and set the `unityVersion` input to `$(unitygetprojectversion.projectVersion)`. Everything else we are leaving at the defaults.
 
 ![Classic Pipeline Designer Task Configuration](../static/img/unity-test-task/unity-test-classic.png)
 
