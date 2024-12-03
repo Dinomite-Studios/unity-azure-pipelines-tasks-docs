@@ -23,6 +23,7 @@ const sidebars: SidebarsConfig = {
             label: 'Features',
             collapsed: false,
             items: ['features',
+                'unity-setup-task',
                 'unity-build-task',
                 'unity-get-project-version-task',
                 'unity-activate-license-task',

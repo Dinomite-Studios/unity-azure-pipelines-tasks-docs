@@ -1,6 +1,5 @@
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { FunctionComponent, ReactNode } from 'react';
-import styles from '../styles.module.css';
 import clsx from 'clsx';
 
 export interface FeatureProps {
@@ -16,10 +15,10 @@ const Feature: FunctionComponent<FeatureProps> = ({
 ) => {
     const imgUrl = useBaseUrl(imageUrl);
     return (
-        <div className={clsx('col col--4', styles.feature)}>
+        <div className={clsx('col col--4')}>
             {imgUrl && (
                 <div className="text--center">
-                    <img className={styles.featureImage} src={imgUrl} alt={title} />
+                    <img className="w-48 h-48" src={imgUrl} alt={title} />
                 </div>
             )}
             <h3>{title}</h3>
