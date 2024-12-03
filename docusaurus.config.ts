@@ -45,7 +45,7 @@ const config: Config = {
         ],
     ],
     themeConfig: {
-        image: 'https://github.com/realitycollective/realitycollective.logo/blob/main/RealityToolkit/RepoBanners/com.realitytoolkit.core.png?raw=true',
+        image: 'img/page-preview.png',
         navbar: {
             title: 'Unity Tools for Azure DevOps',
             logo: {
@@ -73,7 +73,7 @@ const config: Config = {
             ]
         },
         footer: {
-            style: 'dark',
+            style: 'light',
             links: [
                 {
                     title: 'Docs',
@@ -118,9 +118,9 @@ const config: Config = {
             copyright: `Copyright © 2022-${new Date().getFullYear()} Dinomite. All rights reserved.`,
         },
         colorMode: {
-            defaultMode: 'dark',
-            disableSwitch: true,
-            respectPrefersColorScheme: false
+            defaultMode: 'light',
+            disableSwitch: false,
+            respectPrefersColorScheme: false,
         },
         prism: {
             theme: prismThemes.github,

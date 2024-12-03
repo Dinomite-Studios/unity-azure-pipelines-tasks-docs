@@ -5,8 +5,10 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
+import Features from './home/Features';
+import { FeatureProps } from './home/Feature';
 
-const features = [
+const features: FeatureProps[] = [
   {
     title: 'Save Time and Money',
     imageUrl: 'img/undraw_dev_productivity_umsq.svg',
@@ -36,24 +38,9 @@ const features = [
   },
 ];
 
-function Feature({ imageUrl, title, description }) {
-  const imgUrl = useBaseUrl(imageUrl);
-  return (
-    <div className={clsx('col col--4', styles.feature)}>
-      {imgUrl && (
-        <div className="text--center">
-          <img className={styles.featureImage} src={imgUrl} alt={title} />
-        </div>
-      )}
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </div>
-  );
-}
+export default function Home(): JSX.Element {
+  const { siteConfig } = useDocusaurusContext();
 
-function Home() {
-  const context = useDocusaurusContext();
-  const { siteConfig = {} } = context;
   return (
     <Layout
       description="Set up CI/CD for Unity projects powered by Azure Pipelines on Azure DevOps.">
@@ -74,20 +61,8 @@ function Home() {
         </div>
       </header>
       <main>
-        {features && features.length > 0 && (
-          <section className={styles.features}>
-            <div className="container">
-              <div className="row">
-                {features.map((props, idx) => (
-                  <Feature key={idx} {...props} />
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
+        {features && <Features features={features} />}
       </main>
     </Layout>
   );
 }
-
-export default Home;
