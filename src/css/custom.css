@@ -26,3 +26,41 @@
   --ifm-color-primary-lightest: #3ddbff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+[data-theme='light'] .button-primary {
+  background-color: white;
+  color: black;
+}
+
+[data-theme='dark'] .button-primary {
+  background-color: black;
+  color: white;
+}
+
+[data-theme='light'] .button-secondary {
+  box-shadow:inset 0px 0px 0px 4px white;
+  color: white;
+}
+
+[data-theme='dark'] .button-secondary {
+  box-shadow:inset 0px 0px 0px 4px black;
+  color: black;
+}
+
+[data-theme='light'] .hero-title {
+  color: white;
+}
+
+[data-theme='dark'] .hero-title {
+  color: black;
+}
+
+[data-theme='light'] .hero-overlay {
+  opacity: 80%;
+  background-image: linear-gradient(to left, #3b3b3b, #000);
+}
+
+[data-theme='dark'] .hero-overlay {
+  opacity: 80%;
+  background-image: linear-gradient(to left, #999, #aaa);
+}

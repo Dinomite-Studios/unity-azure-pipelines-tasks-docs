@@ -17,7 +17,7 @@ const config: Config = {
         },
     ],
     title: 'Unity Tools for Azure DevOps',
-    tagline: 'Set up CI/CD for Unity projects powered by Azure Pipelines',
+    tagline: 'Free and open source. Save time and money by automating your Unity builds and deployments!',
     favicon: 'img/favicon.ico',
     url: 'https://www.unitydevops.com',
     baseUrl: '/',
