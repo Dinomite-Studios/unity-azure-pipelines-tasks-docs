@@ -1,0 +1,7 @@
+{
+    "label": "Tasks",
+    "link": {
+        "type": "generated-index",
+        "description": "Once installed, you'll have the following Unity related tasks available for use in your pipeline definitions."
+    }
+}

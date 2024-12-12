@@ -1,6 +1,7 @@
 ---
-id: features
-title: Features Overview
+id: introduction
+title: Introduction
+slug: /
 ---
 
 Once Unity Tools for Azure DevOps has been installed to your organization, you'll have access to a set of

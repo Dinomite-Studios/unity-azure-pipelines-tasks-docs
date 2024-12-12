@@ -1,6 +1,7 @@
 ---
 id: unity-get-project-version-task
 title: Unity Get Project Version
+sidebar_label: Unity Get Project Version
 ---
 
 ## About
@@ -66,7 +67,7 @@ steps:
 
 The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we are leaving the `Unity project path` field empty, since we know our Unity project is in the repository root. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `projectVersion` output variable and insert it into any other input field of a task we can then use `$(unitygetprojectversion.projectVersion)`.
 
-![Classic Pipeline Designer Task Configuration](../static/img/unity-get-project-version-task/get-project-version-classic.png)
+![Classic Pipeline Designer Task Configuration](../../static/img/unity-get-project-version-task/get-project-version-classic.png)
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -77,4 +78,4 @@ import TabItem from '@theme/TabItem';
 
 When run and successful the task will provide log output similar to this:
 
-![Task Log](../static/img/unity-get-project-version-task/get-project-version-log.png)
+![Task Log](../../static/img/unity-get-project-version-task/get-project-version-log.png)

@@ -1,15 +1,10 @@
 ---
-id: about
-title: About Unity Tools for Azure DevOps
-sidebar_label: About
-keywords:
-   - Unity
-   - Azure
-   - DevOps
-   - Pipelines
-   - GitHub
-slug: /
+id: installation
+title: Installation
+sidebar_label: Installation
 ---
+
+# Install the extension to your DevOps organization
 
 :::note
 
@@ -29,11 +24,11 @@ The extension is published to the Visual Studio Marketplace and can be installed
 
 1. Open the extension [Unity Tools for Azure DevOps](https://marketplace.visualstudio.com/items?itemName=DinomiteStudios.64e90d50-a9c0-11e8-a356-d3eab7857116) in the marketplace and select `Get it free` to start the installation process.
    
-   ![Extension in Marketplace](../static/img/vs-marketplace-get-extension.png)
+   ![Extension in Marketplace](../../static/img/vs-marketplace-get-extension.png)
 
 2. Select the Azure DevOps organization you want to install the extension to and proceed by selecting `Install`. *(You may also download the extension if you are using Azure DevOps Server).*
    
-   ![Install to organization](../static/img/vs-marketplace-install.png)
+   ![Install to organization](../../static/img/vs-marketplace-install.png)
 
 3. The extension is now installed and you are ready to create your first Unity pipeline.
 

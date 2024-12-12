@@ -1,6 +1,7 @@
 ---
 id: unity-build-task
 title: Unity Build
+sidebar_label: Unity Build
 ---
 
 ## About
@@ -196,7 +197,7 @@ steps:
 
 The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Build target` to `Standalone (agent-based)`, that means if our pipeline runs on a Windows agent we get a Windows built and if on a mac we'll get a macOS build. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `logsOutputPath` output variable and insert it into any other input field of a task we can then use `$(unitybuild.logsOutputPath)`. Everything else we are leaving at the defaults.
 
-![Classic Pipeline Designer Task Configuration](../static/img/unity-build-task/unity-build-classic.png)
+![Classic Pipeline Designer Task Configuration](../../static/img/unity-build-task/unity-build-classic.png)
 
 ---
 
@@ -204,4 +205,4 @@ The classic (visual) editor for Azure Pipelines provides input fields for config
 
 When run and successful the task will provide log output similar to this:
 
-![Task Log](../static/img/unity-build-task/unity-build-log.png)
+![Task Log](../../static/img/unity-build-task/unity-build-log.png)

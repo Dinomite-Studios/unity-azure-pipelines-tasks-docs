@@ -1,6 +1,7 @@
 ---
 id: unity-activate-license-task
 title: Unity Activate License
+sidebar_label: Unity Activate License
 ---
 
 ## About
@@ -131,7 +132,7 @@ steps:
 
 The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set variables, which we previously defined, for the `username`, `password` and `serial` inputs. For `Unity editors location` we tell the task to use the default Unity Hub installation path to lookup installed Unity editor versions on the agent running our pipeline. We are also leaving the `Unity project path` field empty, since we know our Unity project is in the repository root. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `logsOutputPath` output variable and insert it into any other input field of a task we can then use `$(unityactivation.logsOutputPath)`.
 
-![Classic Pipeline Designer Task Configuration](../static/img/unity-activate-license-task/unity-activate-license-classic.png)
+![Classic Pipeline Designer Task Configuration](../../static/img/unity-activate-license-task/unity-activate-license-classic.png)
 
 ---
 
@@ -139,4 +140,4 @@ The classic (visual) editor for Azure Pipelines provides input fields for config
 
 When run and successful the task will provide log output similar to this:
 
-![Task Log](../static/img/unity-activate-license-task/unity-activate-license-log.png)
+![Task Log](../../static/img/unity-activate-license-task/unity-activate-license-log.png)

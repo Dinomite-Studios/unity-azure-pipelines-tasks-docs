@@ -1,6 +1,7 @@
 ---
 id: unity-test-task
 title: Unity Test
+sidebar_label: Unity Test
 ---
 
 ## About
@@ -174,7 +175,7 @@ steps:
 
 The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Test mode` to `Edit Mode`, that means we are running tests that will also include the Unity Editor assembly and APIs. This is e.g. useful when testing editor extensions. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `testResultsOutputPathAndFileName` output variable and insert it into any other input field of a task we can then use `$(unitytest.testResultsOutputPathAndFileName)`. Everything else we are leaving at the defaults.
 
-![Classic Pipeline Designer Task Configuration](../static/img/unity-test-task/unity-test-classic.png)
+![Classic Pipeline Designer Task Configuration](../../static/img/unity-test-task/unity-test-classic.png)
 
 ---
 
@@ -182,4 +183,4 @@ The classic (visual) editor for Azure Pipelines provides input fields for config
 
 When run and successful the task will provide log output similar to this:
 
-![Task Log](../static/img/unity-test-task/unity-test-log.png)
+![Task Log](../../static/img/unity-test-task/unity-test-log.png)
