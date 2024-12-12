@@ -14,10 +14,10 @@ const HeroSection: FunctionComponent = () => {
                 <div className='absolute left-0 top-0 right-0 bottom-0 hero-overlay'></div>
             </div>
 
-            <div className="absolute left-0 top-0 right-0 bottom-0 flex justify-center items-center flex-col">
-                <h1 className="hero__title hero-title">{siteConfig.title}</h1>
-                <p className="hero__subtitle hero-title">{siteConfig.tagline}</p>
-                <div className="flex items-center justify-center gap-8">
+            <div className="absolute left-0 top-0 right-0 bottom-0 flex justify-center items-center flex-col p-4 md:p-8">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl text-center hero-title">{siteConfig.title}</h1>
+                <p className="text-xl md:text-2xl text-center hero-title">{siteConfig.tagline}</p>
+                <div className="flex-col md:flex-row flex items-center justify-center gap-4">
                     <Link
                         className='flex items-center cursor-pointer px-8 py-4 transition-transform hover:drop-shadow-md hover:scale-105 rounded-lg hover:no-underline text-xl font-bold button-primary'
                         title='Get Started'
