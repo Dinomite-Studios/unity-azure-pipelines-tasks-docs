@@ -1,15 +1,12 @@
 import React from 'react';
 import Layout from '@theme/Layout';
-import FeaturesSection from './home/FeaturesSection';
-import HeroBannerSection from './home/HeroBannerSection';
+import HeroSection from './home/HeroSection';
 
 export default function Home(): JSX.Element {
   return (
-    <Layout
-      description="Set up CI/CD for Unity projects powered by Azure Pipelines on Azure DevOps.">
-      <HeroBannerSection />
+    <Layout description="Save time and money by automating your Unity builds and deployments!">
       <main>
-        <FeaturesSection />
+        <HeroSection />
       </main>
     </Layout>
   );
