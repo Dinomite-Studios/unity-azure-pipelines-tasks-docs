@@ -46,6 +46,32 @@ const config: Config = {
     ],
     themeConfig: {
         image: 'img/page-preview.png',
+        metadata: [
+            {
+                name: 'og:title',
+                content: 'Unity Tools for Azure DevOps'
+            },
+            {
+                name: 'og:description',
+                content: 'Free and open source. Save time and money by automating your Unity builds and deployments!'
+            },
+            {
+                name: 'og:url',
+                content: 'https://www.unitydevops.com/'
+            },
+            {
+                name: 'og:site_name',
+                content: 'Unity Tools for Azure DevOps'
+            },
+            {
+                name: 'og:image',
+                content: 'img/page-preview.png'
+            },
+            {
+                name: 'og:type',
+                content: 'website'
+            }
+        ],
         navbar: {
             title: 'Unity Tools for Azure DevOps',
             logo: {
