@@ -6,138 +6,123 @@ sidebar_label: Unity Activate License Task
 
 # About the Unity Activate License Task
 
-This task is used to activate a Untiy Plus/Pro license on the executing agent machine. You can find the task when editing your pipeline by searching for the name `Unity Activate License`.
+:::warning
+This task has been deprecated and will be removed in an upcoming major release. Please use `Unity Setup Task` instead.
+:::
 
----
+This task is used to activate a Untiy Plus/Pro license on the executing agent machine.
+
+## Syntax
+
+```yaml
+# Unity Activate License V1
+# Activate editor using a Unity seat
+- task: UnityActivateLicenseTask@1
+  inputs:
+    username: $(unity.username)
+    password: $(unity.password)
+    serial: $(unity.serial)
+```
 
 ## Inputs
 
-This task supports input variables for configuration.
-
 ### username
 
-The username, generally a mail address, used to activate the license on the machine.
+The username to use for seat activation. This is your Unity ID email.
 
-**Required**: Yes
-
-**Default Value**: -
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `username` | Username | Yes       | - |
 
 ### password
 
-The password for the user specified in the `username` input.
+The password to use for seat activation. This is your Unity ID password.
 
-:::warning
-
-Use a secure variable for this input. That way the password will be secured and will not appear in clear text in any log output.
-
-:::
-
-**Required**: Yes
-
-**Default Value**: -
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `password` | Password | Yes       | - |
 
 ### serial
 
-The Unity Plus/Pro seat serial key used to activate the license on the machine. The seat must have at least one free activation available.
-At the time of writing a Unity Plus/Pro seat can be activated on up to two machines. The build task will release the activation every time once
-the pipeline has finished.
+The serial to use for seat activation. This is the serial for your seat. Obtain it from the Unity dashboard.
 
-:::warning
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `serial` | Serial | Yes      | - |
 
-Use a secure variable for this input. That way the serial will be secured and will not appear in clear text in any log output.
+### deactivateSeatOnComplete
 
-:::
+Dectivates a seat / license on the agent once the pipeline has completed.
 
-**Required**: Yes
-
-**Default Value**: -
-
-### unityEditorsPathMode
-
-For the task to run successfully it needs to know where Unity installations are located at on the agent. This input lets you configure,
-where the task should look for installations.
-
-**Required**: Yes
-
-**Default Value**: unityHub
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `deactivateSeatOnComplete` | Deactivate license when pipeline has finished | No       | true |
 
 #### Options:
 
 | Value               | Description                                                                                                                                 |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| unityHub            | Uses the Unity Hub default installation path.                                                                                               |
-| environmentVariable | Expects an environment variable `UNITYHUB_EDITORS_FOLDER_LOCATION` to exist on the agent and specifying where to find editor installations. |
-| specify             | Let's you specify a custom path where to lookup editor installations using the input `customUnityEditorsPath`.                              |
+| true            | Deactivate seat / license                                                                                               |
+| false             | Do not deactivate seat / license                              |
 
-### customUnityEditorsPath
+### versionSelectionMode
 
-If you are using a custom buld agent you may want to specify a custom path to specify where to look for Unity installations. This input lets you do that.
-Make sure to set `unityEditorsPathMode` to `specify` for this input to take effect.
+This input defines how to determine the Unity version required to build the project on in the context of this task, which Unity editor version to install and / or actigvate a license with.
 
-**Required**: Yes, if `unityEditorsPathMode` set to `specify`
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `versionSelectionMode` | Unity version | Yes       | project |
 
-**Default Value**: -
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| project            | Uses exactly the Unity version that the project was last opened with                                                                                               |
+| specify             | Let's you specify a Unity version to work with. See also input `version`                              |
+
+### version
+
+The version of the Unity editor to work with, e.g. `6000.0.30f1`. You can determine the version for your project using the `ProjectVersion.txt` file within your project's `ProjectSettings` folder.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `version` | Version | Yes, if `versionSelectionMode` is `specify`       | - |
 
 ### unityProjectPath
 
-Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root.
+Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root. Use this input, if your Unity project is nested within subfolders within your repository.
 
-**Required**: No
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `unityProjectPath` | Unity project path | No       | - |
 
-**Default Value**: -
+### unityEditorsLocation
 
----
+For the task to run successfully it needs to know where the Unity Hub executable can be found on the agent. This input defines where to look for it.
 
-## Outputs
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `unityEditorsLocation` | Unity editors location | Yes       | default |
 
-This task provides output variables.
+#### Options:
 
-### logsOutputPath
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| default            | Uses the Unity Hub default installation path for editor installations                                                                                               |
+| specify             | Let's you specify a custom path where to look for the Unity Hub executable. See also input `unityEditorsLocation`                              |
 
-Path to the Unity editor log files generated while executing the task. Use this e.g. to upload logs in case of a failure.
+### customUnityEditorsLocation
 
----
+Should you have configured `unityEditorsLocation` to `specify`, this input is used to read your custom path.
 
-## How to use
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `customUnityEditorsLocation` | Editors folder location | Yes, if `unityEditorsLocation` is `specify`       | - |
 
-Here's a simple example of how to use and define the task in your pipeline. For more examples, check the [Examples Collection](./examples.md).
+## Output variables
 
-### YAML
+This task defines the following output variables, which you can consume in downstream steps, jobs, and stages.
 
-In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityActivateLicenseTask@1`. We are also giving the task a reference name using `name: unityactivation`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `logsOutputPath` output variable to the console using `echo $(unityactivation.logsOutputPath)`. For `username`, `password` and `serial` we use shared pipeline variables created previously that contain the user credentials for activating Unity.
+### editorLogFilePath
 
-```yaml
-trigger:
-- main
-
-pool:
-  name: Unity Windows
-
-variables:
-  - group: unity-activation-variables
-
-steps:
-- task: UnityActivateLicenseTask@1
-  name: unityactivation
-  inputs:
-    username: $(unity.username)
-    password: $(unity.password)
-    serial: $(unity.serial)
-
-- script: |
-    echo $(unityactivation.logsOutputPath)
-```
-
-### Classic Pipeline Editor
-
-The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set variables, which we previously defined, for the `username`, `password` and `serial` inputs. For `Unity editors location` we tell the task to use the default Unity Hub installation path to lookup installed Unity editor versions on the agent running our pipeline. We are also leaving the `Unity project path` field empty, since we know our Unity project is in the repository root. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `logsOutputPath` output variable and insert it into any other input field of a task we can then use `$(unityactivation.logsOutputPath)`.
-
-![Classic Pipeline Designer Task Configuration](../../static/img/unity-activate-license-task/unity-activate-license-classic.png)
-
----
-
-## Log
-
-When run and successful the task will provide log output similar to this:
-
-![Task Log](../../static/img/unity-activate-license-task/unity-activate-license-log.png)
+Path to the Unity editor log file generated while executing the task.

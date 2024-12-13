@@ -22,8 +22,6 @@ Another purpose of this task is to activate a license / seat on the agent, shoul
 
 ## Inputs
 
-This task supports input variables for configuration.
-
 ### unityEditorsPathMode
 
 For the task to run successfully it needs to know where the Unity Hub executable can be found on the agent. This input defines where to look for it.
