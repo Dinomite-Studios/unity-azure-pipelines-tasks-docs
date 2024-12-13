@@ -6,98 +6,88 @@ sidebar_label: Unity CMD Task
 
 # About the Unity CMD Task
 
-This task allows for full control over the arguments passed to the Unity command line. It's aimed at advanced users with specific requirements. For most use cases and users the use of the other provided tasks is recommended as it provides a guided and targeted experience. You can find the task when editing your pipeline by searching for the name `Unity CMD`. In short: use this task only if you know what you are doing.
+This task is a general use command line task. It does not do anything in particular, unless you tell it to. It will invoke the Unity command line using arguments you provided. Use this task whenever any of the other tasks does not fulfill your needs.
 
----
+## Syntax
+
+```yaml
+# Unity CMD Task V1
+# Invokes the Unity command line providing a custom command line argument
+- task: UnityCMDTask@1
+  inputs:
+    cmdArgs: -myCustomArgument
+```
 
 ## Inputs
-
-This task supports input variables for configuration.
 
 ### unityEditorsPathMode
 
 For the task to run successfully it needs to know where Unity installations are located at on the agent. This input lets you configure,
 where the task should look for installations.
 
-**Required**: Yes
-
-**Default Value**: unityHub
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `unityEditorsPathMode` | Unity editors location | Yes       | default |
 
 #### Options:
 
 | Value               | Description                                                                                                                                 |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| unityHub            | Uses the Unity Hub default installation path.                                                                                               |
+| default            | Uses the Unity Hub default installation path                                                                                               |
 | environmentVariable | Expects an environment variable `UNITYHUB_EDITORS_FOLDER_LOCATION` to exist on the agent and specifying where to find editor installations. |
-| specify             | Let's you specify a custom path where to lookup editor installations using the input `customUnityEditorsPath`.                              |
+| specify             | Let's you specify a custom path where to lookup editor installations using the input `customUnityEditorsPath`                              |
 
 ### customUnityEditorsPath
 
-If you are using a custom buld agent you may want to specify a custom path to specify where to look for Unity installations. This input lets you do that.
-Make sure to set `unityEditorsPathMode` to `specify` for this input to take effect.
+Should you have configured `unityEditorsPathMode` to `specify`, this input is used to read your custom path.
 
-**Required**: Yes, if `unityEditorsPathMode` set to `specify`
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `customUnityEditorsPath` | Editors folder location | Yes, if `unityEditorsPathMode` is `specify`       | - |
 
-**Default Value**: -
+### versionSelectionMode
+
+This input defines how to determine the Unity version required to build the project on in the context of this task, which Unity editor version to install and / or actigvate a license with.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `versionSelectionMode` | Unity version | Yes       | project |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| project            | Uses exactly the Unity version that the project was last opened with                                                                                               |
+| specify             | Let's you specify a Unity version to work with. See also input `version`                              |
+
+### version
+
+The version of the Unity editor to work with, e.g. `6000.0.30f1`. You can determine the version for your project using the `ProjectVersion.txt` file within your project's `ProjectSettings` folder.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `version` | Version | Yes, if `versionSelectionMode` is `specify`       | - |
 
 ### unityProjectPath
 
-Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root.
+Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root. Use this input, if your Unity project is nested within subfolders within your repository.
 
-**Required**: No
-
-**Default Value**: -
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `unityProjectPath` | Unity project path | No       | - |
 
 ### cmdArgs
 
 Specify command line arguments to pass to the Unity process when running the task.
 
-:::warning
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `cmdArgs` | Command line arguments | Yes       | - |
 
-The task will set `-batchmode`, `-projectPath` and `-logfile` for you and you shouldn't specify them in your custom command line arguments. These three arguments are currently required to be always set for the task to work as designed.
+## Output variables
 
-:::
+This task defines the following output variables, which you can consume in downstream steps, jobs, and stages.
 
-**Required**: Yes
+### editorLogFilePath
 
-**Default Value**: -
-
-#### Options:
-
-Check the official [Unity command line documentation](https://docs.unity3d.com/Manual/CommandLineArguments.html) for options.
-
----
-
-## Outputs
-
-This task provides output variables.
-
-### logsOutputPath
-
-Path to the Unity editor log files generated while executing the task. Use this e.g. to upload logs in case of a failure.
-
----
-
-## How to use
-
-### YAML
-
-In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityCMDTask@1`. We are also giving the task a reference name using `name: unitycmd`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `logsOutputPath` output variable to the console using `echo $(unitycmd.logsOutputPath)`. For `cmdArgs` we specify that Unity should target the `standalone` platform and execute our custom build script `MyBuildTools.BuildProject` to perform the build.
-
-```yaml
-trigger:
-- main
-
-pool:
-  name: Unity Windows
-
-steps:
-- task: UnityCMDTask@1
-  name: unitycmd
-  inputs:
-    unityEditorsPathMode: unityHub
-    cmdArgs: -buildTarget standalone -executeMethod MyBuildTools.BuildProject
-
-- script: |
-    echo $(unitycmd.logsOutputPath)
-```
+Path to the Unity editor log file generated while executing the task.
