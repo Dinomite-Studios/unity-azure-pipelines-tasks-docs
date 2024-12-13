@@ -148,8 +148,6 @@ Path to the Unity editor log files generated while executing the task. Use this 
 
 ## How to use
 
-Here's a simple example of how to use and define the task in your pipeline. For more examples, check the [Examples Collection](./examples.md).
-
 ### YAML
 
 In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityTestTask@1`. We are also giving the task a reference name using `name: unitytest`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `testResultsOutputPathAndFileName` output variable to the console using `echo $(unitytest.testResultsOutputPathAndFileName)`. For `testMode` we specify that we want to run in `editMode`. Everything else we are leaving at the defaults.

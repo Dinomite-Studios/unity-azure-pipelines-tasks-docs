@@ -168,8 +168,6 @@ Path to the Unity editor log files generated while executing the task. Use this 
 
 ## How to use
 
-Here's a simple example of how to use and define the task in your pipeline. For more examples, check the [Examples Collection](./examples.md).
-
 ### YAML
 
 In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityBuildTask@3`. We are also giving the task a reference name using `name: unitybuild`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `logsOutputPath` output variable to the console using `echo $(unitybuild.logsOutputPath)`. For `buildTarget` we specify that Unity should target the `standalone` platform. Our output file will be named `drop.exe` in this example.

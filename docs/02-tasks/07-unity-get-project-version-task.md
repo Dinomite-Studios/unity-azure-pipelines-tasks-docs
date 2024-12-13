@@ -42,8 +42,6 @@ The Unity editor version revision found by the task for the specified Unity proj
 
 ## How to use
 
-Here's a simple example of how to use and define the task in your pipeline. For more examples, check the [Examples Collection](./examples.md).
-
 ### YAML
 
 In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityGetProjectVersionTask@1`. We are also giving the task a reference name using `name: unitygetprojectversion`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `projectVersion` output variable to the console using `echo $(unitygetprojectversion.projectVersion)`.
