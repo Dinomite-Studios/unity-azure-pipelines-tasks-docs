@@ -105,16 +105,16 @@ const config: Config = {
                     title: 'Docs',
                     items: [
                         {
-                            label: 'About',
+                            label: 'Introduction',
                             to: 'docs/',
                         },
                         {
-                            label: 'Features',
-                            to: 'docs/features/',
+                            label: 'Tasks',
+                            to: 'docs/category/tasks',
                         },
                         {
                             label: 'Examples',
-                            to: 'docs/examples/',
+                            to: 'docs/category/examples',
                         }
                     ],
                 },

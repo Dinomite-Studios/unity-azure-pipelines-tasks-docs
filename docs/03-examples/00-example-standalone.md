@@ -1,5 +1,5 @@
 ---
-id: 00-example-standalone
+id: example-standalone
 title: Standalone Build And Upload
 sidebar_label: Standalone Build And Upload
 ---
