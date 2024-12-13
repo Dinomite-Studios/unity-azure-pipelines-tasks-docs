@@ -4,7 +4,7 @@ title: Unity Build Task
 sidebar_label: Unity Build Task
 ---
 
-## About
+# About the Unity Build Task
 
 This task is responsible for actually building your Unity project and as such the core task of your pipeline. In many cases it will be the only task you'll need from the collection of tasks this extension provides. Unity Build will build your project and provide the output files for further processing as needed. You can find the task when editing your pipeline by searching for the name `Unity Build`.
 

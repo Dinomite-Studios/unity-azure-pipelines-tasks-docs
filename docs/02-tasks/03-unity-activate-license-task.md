@@ -4,7 +4,7 @@ title: Unity Activate License Task
 sidebar_label: Unity Activate License Task
 ---
 
-## About
+# About the Unity Activate License Task
 
 This task is used to activate a Untiy Plus/Pro license on the executing agent machine. You can find the task when editing your pipeline by searching for the name `Unity Activate License`.
 

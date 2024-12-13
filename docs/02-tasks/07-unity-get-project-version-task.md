@@ -4,7 +4,7 @@ title: Unity Get Project Version Task
 sidebar_label: Unity Get Project Version Task
 ---
 
-## About
+# About the Unity Get Project Version Task
 
 This task will find the Unity Editor version the project was last opened with. This is especially useful
 when you need to perform steps in your pipeline that depend on which Unity version is required for the project to build

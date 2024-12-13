@@ -4,7 +4,7 @@ title: Unity Test Task
 sidebar_label: Unity Test Task
 ---
 
-## About
+# About the Unity Test Task
 
 This task is used for running unit tests in your project. Test results will output into a test results file and the file path is provided for uploading and processing. You can find the task when editing your pipeline by searching for the name `Unity Test`.
 

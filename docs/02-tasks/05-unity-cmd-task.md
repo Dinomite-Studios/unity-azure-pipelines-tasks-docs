@@ -4,7 +4,7 @@ title: Unity CMD Task
 sidebar_label: Unity CMD Task
 ---
 
-## About
+# About the Unity CMD Task
 
 This task allows for full control over the arguments passed to the Unity command line. It's aimed at advanced users with specific requirements. For most use cases and users the use of the other provided tasks is recommended as it provides a guided and targeted experience. You can find the task when editing your pipeline by searching for the name `Unity CMD`. In short: use this task only if you know what you are doing.
 
@@ -103,17 +103,3 @@ steps:
 - script: |
     echo $(unitycmd.logsOutputPath)
 ```
-
-### Classic Pipeline Editor
-
-The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Unity editors location` to use the default Unity Hub installation path to lookup installed Unity editor versions on the agent running our pipeline. We are also leaving the `Unity project path` field empty, since we know our Unity project is in the repository root. For `Command line arguments` we specify that Unity should target the `standalone` platform and execute our custom build script `MyBuildTools.BuildProject` to perform the build. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `logsOutputPath` output variable and insert it into any other input field of a task we can then use `$(unitycmd.logsOutputPath)`.
-
-![Classic Pipeline Designer Task Configuration](../../static/img/unity-cmd-task/unity-cmd-classic.png)
-
----
-
-## Log
-
-When run and successful the task will provide log output similar to this:
-
-![Task Log](../../static/img/unity-cmd-task/unity-cmd-log.png)

@@ -4,12 +4,21 @@ title: Unity Setup Task
 sidebar_label: Unity Setup Task
 ---
 
-## About
+# About the Unity Setup Task
 
-Use the Unity Setup task to install a Unity editor version on the build agent. This is especially useful when working with hosted agents,
-where you do not know whether the Unity version your project needs to build is installed on the agent.
+Use this task to setup the Unity editor / installation on the build agent and configure platform modules. This task is especially useful when building using a hosted agent, where the Unity version required for your project to build might not be installed at all or not configured properly for your project.
 
----
+Another purpose of this task is to activate a license / seat on the agent, should your project require it to build. Make sure to use a license with at least one seat activation available. By default, the task will release the seat again after the pipeline has completed.
+
+## Syntax
+
+```yaml
+# Unity Setup V2
+# Install Unity editor with Android module
+- task: UnitySetupTask@2
+  inputs:
+    installAndroidModule: true
+```
 
 ## Inputs
 
@@ -17,104 +26,327 @@ This task supports input variables for configuration.
 
 ### unityEditorsPathMode
 
-For the task to run successfully it needs to know where Unity installations are located at on the agent. This input lets you configure,
-where the task should look for installations.
+For the task to run successfully it needs to know where the Unity Hub executable can be found on the agent. This input defines where to look for it.
 
-**Required**: Yes
-
-**Default Value**: unityHub
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `unityHubExecutableLocation` | Unity Hub executable location | Yes       | default |
 
 #### Options:
 
 | Value               | Description                                                                                                                                 |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| unityHub            | Uses the Unity Hub default installation path.                                                                                               |
-| environmentVariable | Expects an environment variable `UNITYHUB_EDITORS_FOLDER_LOCATION` to exist on the agent and specifying where to find editor installations. |
-| specify             | Let's you specify a custom path where to lookup editor installations using the input `customUnityEditorsPath`.                              |
+| default            | Uses the Unity Hub default installation path to look up the Unity Hub executable                                                                                               |
+| specify             | Let's you specify a custom path where to look for the Unity Hub executable. See also input `customUnityHubExecutableLocation`                              |
 
-### customUnityEditorsPath
+### customUnityHubExecutableLocation
 
-If you are using a custom buld agent you may want to specify a custom path to specify where to look for Unity installations. This input lets you do that.
-Make sure to set `unityEditorsPathMode` to `specify` for this input to take effect.
+Should you have configured `unityEditorsPathMode` to `specify`, this input is used to read your custom path.
 
-**Required**: Yes, if `unityEditorsPathMode` set to `specify`
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `customUnityHubExecutableLocation` | Custom Unity Hub executable path | Yes, if `unityHubExecutableLocation` is `specify`       | - |
 
-**Default Value**: -
+### versionSelectionMode
 
-### unityProjectPath
+This input defines how to determine the Unity version required to build the project on in the context of this task, which Unity editor version to install and / or actigvate a license with.
 
-Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root.
-
-**Required**: No
-
-**Default Value**: -
-
-### cmdArgs
-
-Specify command line arguments to pass to the Unity process when running the task.
-
-:::warning
-
-The task will set `-batchmode`, `-projectPath` and `-logfile` for you and you shouldn't specify them in your custom command line arguments. These three arguments are currently required to be always set for the task to work as designed.
-
-:::
-
-**Required**: Yes
-
-**Default Value**: -
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `versionSelectionMode` | Unity version | Yes       | project |
 
 #### Options:
 
-Check the official [Unity command line documentation](https://docs.unity3d.com/Manual/CommandLineArguments.html) for options.
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| project            | Uses exactly the Unity version that the project was last opened with                                                                                               |
+| specify             | Let's you specify a Unity version to work with. See also input `version` and `revision`                              |
 
----
+### version
 
-## Outputs
+The version of the Unity editor to work with, e.g. `6000.0.30f1`. You can determine the version for your project using the `ProjectVersion.txt` file within your project's `ProjectSettings` folder.
 
-This task provides output variables.
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `version` | Version | Yes, if `versionSelectionMode` is `specify`       | - |
 
-### logsOutputPath
+### revision
 
-Path to the Unity editor log files generated while executing the task. Use this e.g. to upload logs in case of a failure.
+The revision of the Unity editor to work with, e.g. `62b05ba0686a`. You can determine the revision for your project using the `ProjectVersion.txt` file within your project's `ProjectSettings` folder.
 
----
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `revision` | Revision | Yes, if `versionSelectionMode` is `specify`       | - |
 
-## How to use
+### unityProjectPath
 
-Here's a simple example of how to use and define the task in your pipeline. For more examples, check the [Examples Collection](./examples.md).
+Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root. Use this input, if your Unity project is nested within subfolders within your repository.
 
-### YAML
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `unityProjectPath` | Unity project path | No       | - |
 
-In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityCMDTask@1`. We are also giving the task a reference name using `name: unitycmd`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `logsOutputPath` output variable to the console using `echo $(unitycmd.logsOutputPath)`. For `cmdArgs` we specify that Unity should target the `standalone` platform and execute our custom build script `MyBuildTools.BuildProject` to perform the build.
+### installEditor
 
-```yaml
-trigger:
-- main
+If set, the task will check whether the required Unity editor is installed on the agent and install if needed. Disable this if you know the editor
+is preinstalled and you want to skip this setup step.
 
-pool:
-  name: Unity Windows
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installEditor` | Install / verify editor and configuration | No       | true |
 
-steps:
-- task: UnityCMDTask@1
-  name: unitycmd
-  inputs:
-    unityEditorsPathMode: unityHub
-    cmdArgs: -buildTarget standalone -executeMethod MyBuildTools.BuildProject
+#### Options:
 
-- script: |
-    echo $(unitycmd.logsOutputPath)
-```
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install editor and modules, if not already installed                                                                                               |
+| false             | Skip installation                              |
 
-### Classic Pipeline Editor
+### macOSArchitecture
 
-The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Unity editors location` to use the default Unity Hub installation path to lookup installed Unity editor versions on the agent running our pipeline. We are also leaving the `Unity project path` field empty, since we know our Unity project is in the repository root. For `Command line arguments` we specify that Unity should target the `standalone` platform and execute our custom build script `MyBuildTools.BuildProject` to perform the build. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `logsOutputPath` output variable and insert it into any other input field of a task we can then use `$(unitycmd.logsOutputPath)`.
+This input is only relevant when building using a macOS agent. Select the editor architecture to install, in case `installEditor` is enabled.
 
-![Classic Pipeline Designer Task Configuration](../../static/img/unity-cmd-task/unity-cmd-classic.png)
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `macOSArchitecture` | Editor Architecture (macOS only!) | No       | x86_64 |
 
----
+#### Options:
 
-## Log
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| x86_64            | Intel                                                                                               |
+| arm64             | Apple Silicon                              |
 
-When run and successful the task will provide log output similar to this:
+### installAndroidModule
 
-![Task Log](../../static/img/unity-cmd-task/unity-cmd-log.png)
+Install the Android build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installAndroidModule` | Android Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installAndroidChildModules
+
+Installs Android SDK & NDK Tools as well as the OpenJDK module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installAndroidChildModules` | Install Android SDK & NDK Tools & OpenJDK | No       | true |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installIOSModule
+
+Install the iOS build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installIOSModule` | iOS Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installTVOSModule
+
+Install the tvOS build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installTVOSModule` | tvOS Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installVisionOSModule
+
+Install the visionOS build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installVisionOSModule` | visionOS Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installLinuxMonoModule
+
+Install the Linux build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installLinuxMonoModule` | Linux Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installLinuxIL2CPPModule
+
+Install the Linux IL2CPP build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installLinuxIL2CPPModule` | Linux IL2CPP Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installMacMonoModule
+
+Install the macOS build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installMacMonoModule` | macOS Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installMacIL2CPPModule
+
+Install the macOS IL2CPP build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installMacIL2CPPModule` | macOS IL2CPP Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installWindowsIL2CPPModule
+
+Install the Windows IL2CPP build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installWindowsIL2CPPModule` | Windows IL2CPP Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installUWPModule
+
+Install the UWP build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installUWPModule` | UWP Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### installWebGLModule
+
+Install the WebGL build module.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `installWebGLModule` | WebGL Build Support | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Install the module                                                                                               |
+| false             | Do not install the module                              |
+
+### activateLicense
+
+Activates a seat / license on the agent.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `activateLicense` | Activate license | No       | false |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Activate seat / license                                                                                               |
+| false             | Do not activate seat / license                              |
+
+### username
+
+The username to use for seat activation. This is your Unity ID email.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `username` | Username | Yes, if `activateLicense` is `true`       | - |
+
+### password
+
+The password to use for seat activation. This is your Unity ID password.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `password` | Password | Yes, if `activateLicense` is `true`       | - |
+
+### serial
+
+The serial to use for seat activation. This is the serial for your seat. Obtain it from the Unity dashboard.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `serial` | Serial | Yes, if `activateLicense` is `true`       | - |
+
+### deactivateSeatOnComplete
+
+Dectivates a seat / license on the agent once the pipeline has completed.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `deactivateSeatOnComplete` | Deactivate license when pipeline has finished | No       | true |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Deactivate seat / license                                                                                               |
+| false             | Do not deactivate seat / license                              |
