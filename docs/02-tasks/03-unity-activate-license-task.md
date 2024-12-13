@@ -15,7 +15,7 @@ This task is used to activate a Untiy Plus/Pro license on the executing agent ma
 ## Syntax
 
 ```yaml
-# Unity Activate License V1
+# Unity Activate License Task V1
 # Activate editor using a Unity seat
 - task: UnityActivateLicenseTask@1
   inputs:

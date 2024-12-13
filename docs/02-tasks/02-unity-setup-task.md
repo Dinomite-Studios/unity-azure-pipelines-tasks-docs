@@ -13,7 +13,7 @@ Another purpose of this task is to activate a license / seat on the agent, shoul
 ## Syntax
 
 ```yaml
-# Unity Setup V2
+# Unity Setup Task V2
 # Install Unity editor with Android module
 - task: UnitySetupTask@2
   inputs:

@@ -6,27 +6,101 @@ sidebar_label: Unity Build Task
 
 # About the Unity Build Task
 
-This task is responsible for actually building your Unity project and as such the core task of your pipeline. In many cases it will be the only task you'll need from the collection of tasks this extension provides. Unity Build will build your project and provide the output files for further processing as needed. You can find the task when editing your pipeline by searching for the name `Unity Build`.
+This task is responsible for actually building your Unity project and as such the core task of your pipeline. Unity Build will build your project and provide the output files for further processing as needed.
 
-:::tip
+## Syntax
 
-Note that for backwards compatibility the Azure DevOps extension still provides older versions of the task when installed to your organization. Those versions are out of support and will not recieve any more updates. Please make sure to use `Unity Build V3` in your pipelines!
-
-:::
-
----
+```yaml
+# Unity Build Task V3
+# Build a Windows/macOS standalone build
+- task: UnityBuildTask@3
+  name: unitybuild
+  inputs:
+    buildTarget: standalone
+    outputPath: $(Build.BinariesDirectory)
+    outputFileName: drop
+```
 
 ## Inputs
 
-This task supports input variables for configuration.
+### unityEditorsPathMode
+
+For the task to run successfully it needs to know where Unity installations are located at on the agent. This input lets you configure,
+where the task should look for installations.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `unityEditorsPathMode` | Unity editors location | Yes       | default |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| default            | Uses the Unity Hub default installation path                                                                                               |
+| environmentVariable | Expects an environment variable `UNITYHUB_EDITORS_FOLDER_LOCATION` to exist on the agent and specifying where to find editor installations. |
+| specify             | Let's you specify a custom path where to lookup editor installations using the input `customUnityEditorsPath`                              |
+
+### customUnityEditorsPath
+
+Should you have configured `unityEditorsPathMode` to `specify`, this input is used to read your custom path.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `customUnityEditorsPath` | Editors folder location | Yes, if `unityEditorsPathMode` is `specify`       | - |
+
+### versionSelectionMode
+
+This input defines how to determine the Unity version required to build the project on in the context of this task, which Unity editor version to install and / or actigvate a license with.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `versionSelectionMode` | Unity version | Yes       | project |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| project            | Uses exactly the Unity version that the project was last opened with                                                                                               |
+| specify             | Let's you specify a Unity version to work with. See also input `version`                              |
+
+### version
+
+The version of the Unity editor to work with, e.g. `6000.0.30f1`. You can determine the version for your project using the `ProjectVersion.txt` file within your project's `ProjectSettings` folder.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `version` | Version | Yes, if `versionSelectionMode` is `specify`       | - |
+
+### unityProjectPath
+
+Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root. Use this input, if your Unity project is nested within subfolders within your repository.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `unityProjectPath` | Unity project path | No       | - |
+
+### buildFlow
+
+Select the build target flow used to build your project. Starting with Unity 6 the new build profiles offer a sophisticated way of building for different platforms.
+
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `buildFlow` | Build Flow | Yes       | platform |
+
+#### Options:
+
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| platform            | The classic way. Select the `buildTarget` and build for that target platform                                                                                               |
+| profile | Build the project using a build profile. Build profiles were introduced in Unity 6 and give you way more control over PlayerSettings and platform configuration, depending on the target platform you are building for. We recommend reading up on build profiles before using this flow. You'll still need to select the `buildTarget` that matches your profile, so the task can show you platform specific configuration options in the visual pipeline editor |
 
 ### buildTarget
 
-Sets the build target platform the Unity build is being made for. All scripts will be compiled against this platform.
+Sets the build target platform the Unity build is being made for.
 
-**Required**: Yes
-
-**Default Value**: standalone
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `buildTarget` | Build target | Yes       | standalone |
 
 #### Options:
 
@@ -50,157 +124,140 @@ Sets the build target platform the Unity build is being made for. All scripts wi
 | Switch           | Nintendo Switch build.                                                                                |
 | N3DS             | Nintendo 3DS build.                                                                                   |
 | tvOS             | tvOS build.                                                                                           |
+| visionOS             | visionOS build.                                                                                           |
 
-### unityEditorsPathMode
+### buildProfile
 
-For the task to run successfully it needs to know where Unity installations are located at on the agent. This input lets you configure,
-where the task should look for installations.
+Set the build profile saved at the given path as an active build profile for the build. Enter the path to the profile asset within your project here, e.g. `/Assets/Settings/Build Profiles/My Profile.asset`
 
-**Required**: Yes
-
-**Default Value**: unityHub
-
-#### Options:
-
-| Value               | Description                                                                                                                                 |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| unityHub            | Uses the Unity Hub default installation path.                                                                                               |
-| environmentVariable | Expects an environment variable `UNITYHUB_EDITORS_FOLDER_LOCATION` to exist on the agent and specifying where to find editor installations. |
-| specify             | Let's you specify a custom path where to lookup editor installations using the input `customUnityEditorsPath`.                              |
-
-### customUnityEditorsPath
-
-If you are using a custom buld agent you may want to specify a custom path to specify where to look for Unity installations. This input lets you do that.
-Make sure to set `unityEditorsPathMode` to `specify` for this input to take effect.
-
-**Required**: Yes, if `unityEditorsPathMode` set to `specify`
-
-**Default Value**: -
-
-### unityProjectPath
-
-Enter the directory path to the Unity project. If no value is entered, the project is assumed to be in the repository root.
-
-**Required**: No
-
-**Default Value**: -
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `buildProfile` | Profile | Yes, if `buildFlow` is `profile`       | - |
 
 ### buildScriptType
 
 Specifies which build script should be executed when the build process is run. A build script is a `C#` script that's placed inside
 your Unity project and performs a build. If you don't have your own build script, you can use the default provided with the task.
 
-**Required**: Yes
-
-**Default Value**: default
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `buildScriptType` | Build script type | Yes       | default |
 
 #### Options:
 
 | Value    | Description                                                                                         |
 | -------- | --------------------------------------------------------------------------------------------------- |
-| default  | Uses a default build script provided by the task itself that works for most projects and use cases. |
+| default  | Uses a default build script. The task will add the package `games.dinomite.azurepipelines` to your project upon building. This package contains all the default build scripts and options required for the task to work |
 | existing | Use this option to specify your own build script that should be run to execute the build.           |
 | inline   | Use this option to specify an inline build script that should be run to execute the build.          |
 
 ### inlineBuildScript
 
 If you configured `buildScriptType` to `inline` you can enter your build script in the pipeline itself using this input.
-The build script will then get imported to your Unity project when the pipeline runs and be available.
+The task will then crate a C# file in your project and write the inline code into it.
 
-**Required**: Yes, if `buildScriptType` set to `inline`
-
-**Default Value**: -
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `inlineBuildScript` | Inline build script | Yes, if `buildScriptType` is `inline`       | - |
 
 ### scriptExecuteMethod
 
 Specifies the static method to run via command line to build the project. Only relevant when using `buildScriptType` `existing` or `inline`.
 
-**Required**: Yes, if `buildScriptType` set to `existing` or `inline`
-
-**Default Value**: -
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `scriptExecuteMethod` | Build script execute method | Yes, if `buildScriptType` is `inline` or `existing`       | - |
 
 ### outputPath
 
 Specify the build output path relative to the repository root or fully qualified.
 
-**Required**: Yes
-
-**Default Value**: $(Build.BinariesDirectory)
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `outputPath` | Output path | Yes, if `buildScriptType` is `default`       | $(Build.BinariesDirectory) |
 
 ### outputFileName
 
 Enter the output filename to be used when constructing the platform-appropriate output. For instance, if you want the output to be 'thegame.exe' on Windows Standalone, enter 'thegame'.
 
-**Required**: No
-
-**Default Value**: drop
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `outputFileName` | Output filename | Yes, if `buildScriptType` is `default`       | drop |
 
 ### additionalCmdArgs
 
-Specify command line arguments to pass to the Unity process when running the task.
+Specify any additional command line arguments to pass to the Unity process when running the task, should you need them.
 
-:::warning
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `additionalCmdArgs` | Command line arguments | No       | - |
 
-Many command line arguments the build task will already set for you. If you find you are missing any advanced or custom command line arguments, only then you should
-specify them using this input. For most use cases and projects you will not need to add any additional command line arguments.
+### androidBuildAppBundle
 
-:::
+If set, the build will produce an .aab file instead of an .apk file. This is relevant when you want to create a build that can be published to the Google Play Store.
 
-**Required**: No
-
-**Default Value**: -
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `androidBuildAppBundle` | Build Android App Bundle (Google Play) | No       | false |
 
 #### Options:
 
-Check the official [Unity command line documentation](https://docs.unity3d.com/Manual/CommandLineArguments.html) for options.
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Build app bundle instead of APK                                                                                               |
+| false             | Build APK                              |
 
----
+### androidSignAppBundle
 
-## Outputs
+If set, you can specify a keystore and credentials to sign the build artifact, you will usually want to do this when producing a release build for deployment to stores.
 
-This task provides output variables.
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `androidSignAppBundle` | Sign APK / app bundle | No       | false |
 
-### logsOutputPath
+#### Options:
 
-Path to the Unity editor log files generated while executing the task. Use this e.g. to upload logs in case of a failure.
+| Value               | Description                                                                                                                                 |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| true            | Sign APK / app bundle                                                                                               |
+| false             | Do not sign. Use development keystore                              |
 
----
+### androidKeystoreName
 
-## How to use
+Specify any additional command line arguments to pass to the Unity process when running the task, should you need them.
 
-### YAML
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `androidKeystoreName` | Keystore file path | Yes, if `androidSignAppBundle` is `true`       | - |
 
-In the simple YAML example below we are definiing the task a step in the pipeilne using `- task: UnityBuildTask@3`. We are also giving the task a reference name using `name: unitybuild`, so we can use it to refernce the output variables of the task in other tasks of the pipeline. E.g. we can output the value of the `logsOutputPath` output variable to the console using `echo $(unitybuild.logsOutputPath)`. For `buildTarget` we specify that Unity should target the `standalone` platform. Our output file will be named `drop.exe` in this example.
+### androidKeystorePass
 
-```yaml
-trigger:
-- main
+Specify any additional command line arguments to pass to the Unity process when running the task, should you need them.
 
-pool:
-  name: Unity Windows
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `androidKeystorePass` | Keystore password | Yes, if `androidSignAppBundle` is `true`       | - |
 
-steps:
-- task: UnityBuildTask@3
-  name: unitybuild
-  inputs:
-    buildTarget: standalone
-    outputPath: $(Build.BinariesDirectory)
-    outputFileName: drop
+### androidKeystoreAliasName
 
-- script: |
-    echo $(unitybuild.logsOutputPath)
-```
+Specify any additional command line arguments to pass to the Unity process when running the task, should you need them.
 
-### Classic Pipeline Editor
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `androidKeystoreAliasName` | Keystore alias name | Yes, if `androidSignAppBundle` is `true`       | - |
 
-The classic (visual) editor for Azure Pipelines provides input fields for configuring the task. In the simple example below, we set `Build target` to `Standalone (agent-based)`, that means if our pipeline runs on a Windows agent we get a Windows built and if on a mac we'll get a macOS build. We are also assigning a `Reference name` to the task, so we can use it to refernce the output variables in the variables list in other tasks of the pipeline. E.g. to get the value of the `logsOutputPath` output variable and insert it into any other input field of a task we can then use `$(unitybuild.logsOutputPath)`. Everything else we are leaving at the defaults.
+### androidKeystoreAliasPass
 
-![Classic Pipeline Designer Task Configuration](../../static/img/unity-build-task/unity-build-classic.png)
+Specify any additional command line arguments to pass to the Unity process when running the task, should you need them.
 
----
+| YAML                       | Classic Editor                | Required | Default |
+|----------------------------|-------------------------------|----------|---------|
+| `androidKeystoreAliasPass` | Keystore alias password | No, if not specified and `androidSignAppBundle` is `true`, then the task will assume the alias password is the same one as `androidKeystorePass`. If the alias password is a different one, do make sure to set this value here       | - |
 
-## Log
+## Output variables
 
-When run and successful the task will provide log output similar to this:
+This task defines the following output variables, which you can consume in downstream steps, jobs, and stages.
 
-![Task Log](../../static/img/unity-build-task/unity-build-log.png)
+### editorLogFilePath
+
+Path to the Unity editor log file generated while executing the task.
