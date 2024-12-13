@@ -98,7 +98,8 @@ Enter the directory path to the Unity project. If no value is entered, the proje
 
 ### unityEditorsLocation
 
-For the task to run successfully it needs to know where the Unity Hub executable can be found on the agent. This input defines where to look for it.
+For the task to run successfully it needs to know where Unity installations are located at on the agent. This input lets you configure,
+where the task should look for installations.
 
 | YAML                       | Classic Editor                | Required | Default |
 |----------------------------|-------------------------------|----------|---------|
@@ -108,8 +109,9 @@ For the task to run successfully it needs to know where the Unity Hub executable
 
 | Value               | Description                                                                                                                                 |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| default            | Uses the Unity Hub default installation path for editor installations                                                                                               |
-| specify             | Let's you specify a custom path where to look for the Unity Hub executable. See also input `unityEditorsLocation`                              |
+| default            | Uses the Unity Hub default installation path                                                                                               |
+| environmentVariable | Expects an environment variable `UNITYHUB_EDITORS_FOLDER_LOCATION` to exist on the agent and specifying where to find editor installations. |
+| specify             | Let's you specify a custom path where to lookup editor installations using the input `customUnityEditorsLocation`                              |
 
 ### customUnityEditorsLocation
 
