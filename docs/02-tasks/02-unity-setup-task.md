@@ -1,7 +1,7 @@
 ---
 id: unity-setup-task
-title: Unity Setup
-sidebar_label: Unity Setup
+title: Unity Setup Task
+sidebar_label: Unity Setup Task
 ---
 
 ## About

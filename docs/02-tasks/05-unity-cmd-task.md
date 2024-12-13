@@ -1,7 +1,7 @@
 ---
 id: unity-cmd-task
-title: Unity CMD
-sidebar_label: Unity CMD
+title: Unity CMD Task
+sidebar_label: Unity CMD Task
 ---
 
 ## About

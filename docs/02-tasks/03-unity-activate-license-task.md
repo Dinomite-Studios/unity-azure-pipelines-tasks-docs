@@ -1,7 +1,7 @@
 ---
 id: unity-activate-license-task
-title: Unity Activate License
-sidebar_label: Unity Activate License
+title: Unity Activate License Task
+sidebar_label: Unity Activate License Task
 ---
 
 ## About

@@ -1,7 +1,7 @@
 ---
 id: unity-get-project-version-task
-title: Unity Get Project Version
-sidebar_label: Unity Get Project Version
+title: Unity Get Project Version Task
+sidebar_label: Unity Get Project Version Task
 ---
 
 ## About

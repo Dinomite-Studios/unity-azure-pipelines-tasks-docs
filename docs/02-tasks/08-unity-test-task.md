@@ -1,7 +1,7 @@
 ---
 id: unity-test-task
-title: Unity Test
-sidebar_label: Unity Test
+title: Unity Test Task
+sidebar_label: Unity Test Task
 ---
 
 ## About

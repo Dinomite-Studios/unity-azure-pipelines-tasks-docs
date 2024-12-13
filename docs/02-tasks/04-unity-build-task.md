@@ -1,7 +1,7 @@
 ---
 id: unity-build-task
-title: Unity Build
-sidebar_label: Unity Build
+title: Unity Build Task
+sidebar_label: Unity Build Task
 ---
 
 ## About
